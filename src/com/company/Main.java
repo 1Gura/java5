@@ -25,7 +25,11 @@ public class Main {
         var saxTest = new SAXParse();
         //saxTest.readerSaxDocument("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\saxfile1.xml");
 //        saxTest.writeSaxDocument("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\saxfile2.xml");
-        PropertiesParse propertiesParse = new PropertiesParse();
-        propertiesParse.readSettings("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\settings.properties");
+//        PropertiesParse propertiesParse = new PropertiesParse();
+//        propertiesParse.readSettings("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\settings.properties");
+
+//        Работа с БД
+        var base = new MySqlParse();
+        base.workDataBase();
     }
 }
