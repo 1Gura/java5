@@ -59,10 +59,14 @@ public class Main {
                 case 1: {
                     if (type == 1) {
                         var sax = new SAXParse();
-                        sax.readerSaxDocument(filePath);
+                        var students =  sax.readerSaxDocument(filePath);
+                        for (Student student : students) {
+                            System.out.println(student.toString());
+                        }
                     }
                 }break;
                 case 2: {
+                    //пределать в конце
                     var sax = new SAXParse();
                     int typeSearch = 0;
                     String content = "";
@@ -84,6 +88,8 @@ public class Main {
                     }
                 }break;
                 case 3: {
+                    var dom = new DomParse(filePath);
+                    dom.setDomNodes();
 
                 }break;
                 case 4: {

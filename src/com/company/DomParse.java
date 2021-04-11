@@ -63,14 +63,14 @@ public class DomParse {
             builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();// создаем пустой объект Document
             // создаем корневой элемент
-            Element rootElement = doc.createElement("Languages");
+            Element rootElement = doc.createElement("Students");
             // добавляем корневой элемент в объект Document
             doc.appendChild(rootElement);
 
             // добавляем первый дочерний элемент к корневому
-            rootElement.appendChild(getLanguage(doc, "1", "Java", "21"));
+            rootElement.appendChild(getStudent(doc, "1", "Илья", "Гура", "Сергеевич", "Школа №13", "11", "18"));
             //добавляем второй дочерний элемент к корневому
-            rootElement.appendChild(getLanguage(doc, "2", "C", "44"));
+            rootElement.appendChild(getStudent(doc, "2", "Сергей", "Иванов", "Владимирович", "Школа №47", "10", "10"));
 
             doc.getDocumentElement().normalize();
             //создаем объект TransformerFactory для преобразования документа в файл
@@ -93,11 +93,15 @@ public class DomParse {
     }
 
     // метод для создания нового узла XML-файла
-    private static Node getLanguage(Document doc, String id, String name, String age) {
-        Element language = doc.createElement("Language");
+    private static Node getStudent(Document doc, String id, String name, String surname, String patronymic, String school, String clas, String age) {
+        Element language = doc.createElement("Student");
         language.setAttribute("id", id); // устанавливаем атрибут id
         // создаем элементы name и age
         language.appendChild(getLanguageElements(doc, "name", name));
+        language.appendChild(getLanguageElements(doc, "surname", surname));
+        language.appendChild(getLanguageElements(doc, "patronymic", patronymic));
+        language.appendChild(getLanguageElements(doc, "school", school));
+        language.appendChild(getLanguageElements(doc, "clas", clas));
         language.appendChild(getLanguageElements(doc, "age", age));
         return language;
     }
