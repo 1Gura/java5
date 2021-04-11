@@ -52,20 +52,26 @@ public class SAXParse {
 
     private final DefaultHandler handlerSearch = new DefaultHandler() {
         String tag = "";
+
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             tag = qName;
-//            String id = attributes.getValue("id");
-            if (tag.equalsIgnoreCase(content)) {
+            String id = attributes.getValue("id");
+            if (tag.equalsIgnoreCase(content) && typeSearch == 1) {
                 flag = true;
                 System.out.println("\nЭлемент " + tag);
             }
-
+            if (id != null) {
+                if (id.equalsIgnoreCase(content) && typeSearch == 2) {
+                    flag = true;
+                    System.out.println("\nЭлемент " + tag + " с id =" + content);
+                }
+            }
         }
 
         @Override
         public void characters(char ch[], int start, int length) throws SAXException {
-            if (typeSearch == 1 && flag) {
+            if (flag) {
                 if (tag.equalsIgnoreCase("name") ||
                         tag.equalsIgnoreCase("surname") ||
                         tag.equalsIgnoreCase("patronymic") ||
@@ -79,9 +85,16 @@ public class SAXParse {
 
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
-            if(tag.equalsIgnoreCase(""))
+            if (tag.equalsIgnoreCase(""))
                 flag = false;
-            tag = "";
+            if (tag.equalsIgnoreCase("name") ||
+                    tag.equalsIgnoreCase("surname") ||
+                    tag.equalsIgnoreCase("patronymic") ||
+                    tag.equalsIgnoreCase("school") ||
+                    tag.equalsIgnoreCase("class") ||
+                    tag.equalsIgnoreCase("age")
+            )
+                tag = "";
         }
     };
 

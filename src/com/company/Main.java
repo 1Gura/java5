@@ -69,17 +69,16 @@ public class Main {
                     while (true) {
                         System.out.println("Выберите по какому параметру искать:\n" +
                                 "1: По тегу\n" +
-                                "2: По id\n" +
-                                "3: По содержимому\n");
+                                "2: По id\n");
                         typeSearch = getNum();
                         System.out.print("Выберите содержимое поиска:\n");
                         Scanner scanner = new Scanner(System.in);
                         content = scanner.nextLine();
-                        if (typeSearch >= 1 && typeSearch <= 3) {
+                        if (typeSearch >= 1 && typeSearch <= 2) {
                             sax.searchSaxDocument(filePath, typeSearch, content);
                             break;
                         } else {
-                            System.out.println("Можно ввести только 1,2,3");
+                            System.out.println("Можно ввести только 1,2");
                         }
 
                     }
