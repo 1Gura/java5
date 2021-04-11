@@ -16,6 +16,39 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class Main {
 
+    private static String setValue() {
+        while(true) {
+            Scanner sc = new Scanner(System.in);
+            String str = sc.next();
+            if(str.length() > 0) {
+                return str;
+            } else {
+                System.out.println("Необходимо ввести значение!");
+            }
+        }
+
+
+    }
+    private static Student setNewStudent(int size) {
+        String[] strings = new String[6];
+        System.out.println("Введите значения для ученика:");
+        System.out.println("Введите имя:");
+        strings[0] = setValue();
+        System.out.println("Введите фамилию:");
+        strings[1] = setValue();
+        System.out.println("Введите отчество:");
+        strings[2] = setValue();
+        System.out.println("Введите школу:");
+        strings[3] = setValue();
+        System.out.println("Введите класс:");
+        strings[4] = setValue();
+        System.out.println("Введите возраст:");
+        strings[5] = setValue();
+        return new Student(size,strings[0],strings[1],strings[2],
+                strings[3],strings[4], strings[5]);
+
+    }
+
     public static int getNum() {
         Scanner sc = new Scanner(System.in);
         while (!sc.hasNextInt()) {
@@ -88,8 +121,11 @@ public class Main {
                     }
                 }break;
                 case 3: {
+                    var sax = new SAXParse();
+                    var students =  sax.readerSaxDocument(filePath);
+                    var newStudent = setNewStudent(students.size());
                     var dom = new DomParse(filePath);
-                    dom.setDomNodes();
+                    dom.setDomNodes(filePath, students, newStudent);
 
                 }break;
                 case 4: {

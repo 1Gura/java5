@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.util.ArrayList;
 
 public class DomParse {
     private final String filePath;
@@ -56,7 +57,7 @@ public class DomParse {
         }
     }
 
-    public void setDomNodes() {
+    public void setDomNodes(String filePath, ArrayList<Student> students, Student newStudent) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         try {
@@ -65,12 +66,13 @@ public class DomParse {
             // создаем корневой элемент
             Element rootElement = doc.createElement("Students");
             // добавляем корневой элемент в объект Document
+            for(Student student : students){
+                rootElement.appendChild(getStudent(doc, student.getId(), student.getName(), student.getSurname(),
+                        student.getPatronymic(), student.getSchool(), student.getClas(), student.getAge()));
+            }
             doc.appendChild(rootElement);
-
-            // добавляем первый дочерний элемент к корневому
-            rootElement.appendChild(getStudent(doc, "1", "Илья", "Гура", "Сергеевич", "Школа №13", "11", "18"));
-            //добавляем второй дочерний элемент к корневому
-            rootElement.appendChild(getStudent(doc, "2", "Сергей", "Иванов", "Владимирович", "Школа №47", "10", "10"));
+            rootElement.appendChild(getStudent(doc, newStudent.getId(), newStudent.getName(), newStudent.getSurname(),
+                    newStudent.getPatronymic(), newStudent.getSchool(), newStudent.getClas(), newStudent.getAge()));
 
             doc.getDocumentElement().normalize();
             //создаем объект TransformerFactory для преобразования документа в файл
@@ -82,7 +84,7 @@ public class DomParse {
             //получение исходного кода готового документа
             DOMSource source = new DOMSource(doc);
             //создание объекта для записи - файл
-            StreamResult file = new StreamResult(new File("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\file2.xml"));
+            StreamResult file = new StreamResult(new File(filePath));
             //запись данных
             transformer.transform(source, file);
             System.out.println("Создание XML файла закончено");
@@ -93,9 +95,9 @@ public class DomParse {
     }
 
     // метод для создания нового узла XML-файла
-    private static Node getStudent(Document doc, String id, String name, String surname, String patronymic, String school, String clas, String age) {
+    private static Node getStudent(Document doc, int id, String name, String surname, String patronymic, String school, String clas, String age) {
         Element language = doc.createElement("Student");
-        language.setAttribute("id", id); // устанавливаем атрибут id
+        language.setAttribute("id", id+""); // устанавливаем атрибут id
         // создаем элементы name и age
         language.appendChild(getLanguageElements(doc, "name", name));
         language.appendChild(getLanguageElements(doc, "surname", surname));

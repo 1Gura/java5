@@ -28,4 +28,27 @@ public class Student {
                 +"Класс: " + this.clas + "\n"
                 +"Возраст: " + this.age + "\n";
     }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    public String getSurname() {
+        return this.surname;
+    }
+    public String getPatronymic() {
+        return this.patronymic;
+    }
+    public String getSchool() {
+        return this.school;
+    }
+    public String getClas() {
+        return this.clas;
+    }
+    public String getAge() {
+        return this.age;
+    }
 }

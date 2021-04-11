@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0"?>
 <Students>
-    <Student id="1">
+    <Student id = "1">
         <name>Илья</name>
         <surname>Гура</surname>
-        <patronymic>Сергеевич</patronymic>
+        <patronymic>Сергеевич</patronymic> 
         <school>Школа №13</school>
-        <clas>11</clas>
+        <class>11</class>
         <age>18</age>
     </Student>
-    <Student id="2">
+    <Test>
+        <name>Иван</name>
+        <surname>Иванин</surname>
+    </Test>
+    <Student id = "2">
         <name>Сергей</name>
         <surname>Иванов</surname>
-        <patronymic>Владимирович</patronymic>
+        <patronymic>Владимирович</patronymic> 
         <school>Школа №47</school>
-        <clas>10</clas>
+        <class>10</class>
         <age>10</age>
     </Student>
 </Students>
