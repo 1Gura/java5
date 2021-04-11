@@ -51,7 +51,7 @@ public class SAXParse {
             else if (tag.equalsIgnoreCase("school")) {
                 strMas[3] = new String(ch, start, length);
             }
-            else if (tag.equalsIgnoreCase("class")) {
+            else if (tag.equalsIgnoreCase("clas")) {
                 strMas[4] = new String(ch, start, length);
             }
             else if (tag.equalsIgnoreCase("age")) {
