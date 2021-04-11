@@ -1,11 +1,23 @@
 <?xml version="1.0"?>
-<Languages>
-    <Language>
-        <name>Java</name>
-        <age>21</age>
-    </Language>
-    <Language>
-        <name>C</name>
-        <age>44</age>
-    </Language>
-</Languages>
+<Students>
+    <Student id = "1">
+        <name>Илья</name>
+        <surname>Гура</surname>
+        <patronymic>Сергеевич</patronymic> 
+        <school>Школа №13</school>
+        <class>11</class>
+        <age>18</age>
+    </Student>
+    <Test id = "2">
+        <name>Иван</name>
+        <surname>Иванин</surname>
+    </Test>
+    <Student id = "2">
+        <name>Сергей</name>
+        <surname>Иванов</surname>
+        <patronymic>Владимирович</patronymic> 
+        <school>Школа №47</school>
+        <class>10</class>
+        <age>17</age>
+    </Student>
+</Students>

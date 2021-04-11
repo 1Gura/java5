@@ -18,12 +18,13 @@ public class MySqlParse {
                 Statement statement = (Statement) connection.createStatement();
 //                statement.executeUpdate("create table if not exists books (id MEDIUMINT PRIMARY KEY NOT NULL AUTO_INCREMENT,name VARCHAR(30) NOT NULL)");
 //                statement.executeUpdate("insert into books (name) values('Inferno')");
-//                statement.executeUpdate("insert into books (name) values('War and Piece')");
-                ResultSet resultSet = statement.executeQuery("select * from books");
-                while(resultSet.next()) {
-                    System.out.print(resultSet.getInt("id") + " ");
-                    System.out.println(resultSet.getString("name"));
-                }
+                statement.executeUpdate("DROP TABLE books;");
+//                ResultSet resultSet = statement.executeQuery("select * from books");
+//                while(resultSet.next()) {
+//                    System.out.print(resultSet.getInt("id") + " ");
+//                    System.out.println(resultSet.getString("name"));
+//                }
+
 
 
             } catch (Exception e) {

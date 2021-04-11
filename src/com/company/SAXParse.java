@@ -11,34 +11,91 @@ import javax.xml.transform.Result;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 
 public class SAXParse {
-    private final DefaultHandler handler =  new DefaultHandler() {
+    protected int typeSearch;
+    protected String content;
+    protected boolean flag = false;
+    protected int step = 0;
+    private final DefaultHandler handler = new DefaultHandler() {
         String tag = "";
+
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             tag = qName;
-            if (tag.equalsIgnoreCase("Language"))
-                System.out.println("\nЭлемент "+ tag);
+            if (tag.equalsIgnoreCase("Student"))
+                System.out.println("\nЭлемент " + tag);
         }
 
         @Override
         public void characters(char ch[], int start, int length) throws SAXException {
-            if (tag.equalsIgnoreCase("name"))
-                System.out.println(tag + ": " + new String(ch, start, length));
-            else
-            if (tag.equalsIgnoreCase("age"))
+            if (tag.equalsIgnoreCase("name") ||
+                    tag.equalsIgnoreCase("surname") ||
+                    tag.equalsIgnoreCase("patronymic") ||
+                    tag.equalsIgnoreCase("school") ||
+                    tag.equalsIgnoreCase("class") ||
+                    tag.equalsIgnoreCase("age")
+            )
                 System.out.println(tag + ": " + new String(ch, start, length));
         }
+
         @Override
-        public void endElement(String uri,String localName,String qName) throws SAXException {
+        public void endElement(String uri, String localName, String qName) throws SAXException {
             tag = "";
         }
     };
+
+    private final DefaultHandler handlerSearch = new DefaultHandler() {
+        String tag = "";
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+            tag = qName;
+//            String id = attributes.getValue("id");
+            if (tag.equalsIgnoreCase(content)) {
+                flag = true;
+                System.out.println("\nЭлемент " + tag);
+            }
+
+        }
+
+        @Override
+        public void characters(char ch[], int start, int length) throws SAXException {
+            if (typeSearch == 1 && flag) {
+                if (tag.equalsIgnoreCase("name") ||
+                        tag.equalsIgnoreCase("surname") ||
+                        tag.equalsIgnoreCase("patronymic") ||
+                        tag.equalsIgnoreCase("school") ||
+                        tag.equalsIgnoreCase("class") ||
+                        tag.equalsIgnoreCase("age")
+                )
+                    System.out.println(tag + ": " + new String(ch, start, length));
+            }
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+            if(tag.equalsIgnoreCase(""))
+                flag = false;
+            tag = "";
+        }
+    };
+
+    public void searchSaxDocument(String filePath, int type, String content) {
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser saxParser = factory.newSAXParser();
+            this.typeSearch = type;
+            this.content = content;
+            saxParser.parse(new File(filePath), handlerSearch);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void readerSaxDocument(String filePath) {
         try {
@@ -49,6 +106,7 @@ public class SAXParse {
             e.printStackTrace();
         }
     }
+
     //В качестве аргумента принимает путь файла, в который нужно записать
     public void writeSaxDocument(String filePath) {
         try {
@@ -64,7 +122,7 @@ public class SAXParse {
             writer.writeEndElement();
             writer.writeEndElement();
             writer.writeEndDocument();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
