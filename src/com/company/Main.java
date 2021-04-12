@@ -69,7 +69,21 @@ public class Main {
         }
         var dom = new DomParse(filePath);
         dom.setDomNodes(filePath, students);
+    }
 
+    private static void deleteStudent(String filePath) {
+        var sax = new SAXParse();
+        var students = sax.readerSaxDocument(filePath);
+        System.out.println("Введите id ученика:");
+        var searchId = getNum();
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == searchId) {
+                students.remove(i);
+                break;
+            }
+        }
+        var dom = new DomParse(filePath);
+        dom.setDomNodes(filePath, students);
     }
 
     public static int getNum() {
@@ -161,7 +175,7 @@ public class Main {
                 }
                 break;
                 case 5: {
-
+                    deleteStudent(filePath);
                 }
                 break;
                 case 9: {

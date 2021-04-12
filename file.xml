@@ -8,12 +8,4 @@
         <clas>11</clas>
         <age>18</age>
     </Student>
-    <Student id="2">
-        <name>Николай</name>
-        <surname>Кожевников</surname>
-        <patronymic>Сергеевич</patronymic>
-        <school>19</school>
-        <clas>11</clas>
-        <age>18</age>
-    </Student>
 </Students>
