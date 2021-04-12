@@ -84,8 +84,6 @@ public class DomParse {
             StreamResult file = new StreamResult(new File(filePath));
             //запись данных
             transformer.transform(source, file);
-            System.out.println("Создание XML файла закончено");
-
         } catch (Exception e) {
             e.printStackTrace();
         }

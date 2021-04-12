@@ -59,16 +59,23 @@ public class Main {
         System.out.println("Введите id ученика:");
         var searchId = getNum();
         var strings = setValueStudent();
+        boolean flag = false;
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getId() == searchId) {
                 students.set(i, new Student(searchId,
                         strings[0], strings[1], strings[2],
                         strings[3], strings[4], strings[5]));
+                flag = true;
                 break;
             }
         }
-        var dom = new DomParse(filePath);
-        dom.setDomNodes(filePath, students);
+        if (flag) {
+            var dom = new DomParse(filePath);
+            dom.setDomNodes(filePath, students);
+        } else {
+            System.out.println("Такого ученика нет!");
+        }
+
     }
 
     private static void deleteStudent(String filePath) {
@@ -76,14 +83,21 @@ public class Main {
         var students = sax.readerSaxDocument(filePath);
         System.out.println("Введите id ученика:");
         var searchId = getNum();
+        boolean flag = false;
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getId() == searchId) {
                 students.remove(i);
+                flag = true;
                 break;
             }
         }
-        var dom = new DomParse(filePath);
-        dom.setDomNodes(filePath, students);
+        if(flag) {
+            var dom = new DomParse(filePath);
+            dom.setDomNodes(filePath, students);
+        } else {
+            System.out.println("Такого студента нет!");
+        }
+
     }
 
     public static int getNum() {
@@ -153,7 +167,7 @@ public class Main {
                         content = scanner.nextLine();
                         if (typeSearch >= 1 && typeSearch <= 2) {
                             var student = sax.searchSaxDocument(filePath, typeSearch, content);
-                            System.out.println(student.toString());
+                            System.out.println(student != null ? student.toString() : "Такого студента нет!");
                             break;
                         } else {
                             System.out.println("Можно ввести только 1,2");
