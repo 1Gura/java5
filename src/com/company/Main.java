@@ -91,7 +91,7 @@ public class Main {
                 break;
             }
         }
-        if(flag) {
+        if (flag) {
             var dom = new DomParse(filePath);
             dom.setDomNodes(filePath, students);
         } else {
@@ -149,28 +149,67 @@ public class Main {
                                 System.out.println(student.toString());
                             }
                         }
+                    } else if (type == 2) {
+                        var mySqlObj = new MySqlParse();
+                        var result = mySqlObj.workDataBase(choice);
+                        try {
+                            while (result.next()) {
+                                Student student = new Student(
+                                        result.getInt("id"),
+                                        result.getString("name"),
+                                        result.getString("surname"),
+                                        result.getString("patronymic"),
+                                        result.getString("school"),
+                                        result.getString("clas"),
+                                        result.getString("age")
+                                );
+                                System.out.println(student.toString());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 break;
                 case 2: {
-                    //переделать в конце
-                    var sax = new SAXParse();
-                    int typeSearch = 0;
-                    String content = "";
-                    while (true) {
-                        System.out.println("Выберите по какому параметру искать:\n" +
-                                "1: По тегу\n" +
-                                "2: По id\n");
-                        typeSearch = getNum();
-                        System.out.print("Выберите содержимое поиска:\n");
-                        Scanner scanner = new Scanner(System.in);
-                        content = scanner.nextLine();
-                        if (typeSearch >= 1 && typeSearch <= 2) {
-                            var student = sax.searchSaxDocument(filePath, typeSearch, content);
-                            System.out.println(student != null ? student.toString() : "Такого студента нет!");
-                            break;
-                        } else {
-                            System.out.println("Можно ввести только 1,2");
+                    if (type == 1) {
+                        var sax = new SAXParse();
+                        int typeSearch = 0;
+                        String content = "";
+                        while (true) {
+                            System.out.println("Выберите по какому параметру искать:\n" +
+                                    "1: По тегу\n" +
+                                    "2: По id\n");
+                            typeSearch = getNum();
+                            System.out.print("Выберите содержимое поиска:\n");
+                            Scanner scanner = new Scanner(System.in);
+                            content = scanner.nextLine();
+                            if (typeSearch >= 1 && typeSearch <= 2) {
+                                var student = sax.searchSaxDocument(filePath, typeSearch, content);
+                                System.out.println(student != null ? student.toString() : "Такого студента нет!");
+                                break;
+                            } else {
+                                System.out.println("Можно ввести только 1,2");
+                            }
+                        }
+                    } else if (type == 2) {
+                        var mySqlObj = new MySqlParse();
+                        var result = mySqlObj.workDataBase(choice);
+                        try {
+                            while (result.next()) {
+                                Student student = new Student(
+                                        result.getInt("id"),
+                                        result.getString("name"),
+                                        result.getString("surname"),
+                                        result.getString("patronymic"),
+                                        result.getString("school"),
+                                        result.getString("clas"),
+                                        result.getString("age")
+                                );
+                                System.out.println(student.toString());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }
