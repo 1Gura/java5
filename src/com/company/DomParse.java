@@ -57,7 +57,7 @@ public class DomParse {
         }
     }
 
-    public void setDomNodes(String filePath, ArrayList<Student> students, Student newStudent) {
+    public void setDomNodes(String filePath, ArrayList<Student> students) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         try {
@@ -70,9 +70,9 @@ public class DomParse {
                 rootElement.appendChild(getStudent(doc, student.getId(), student.getName(), student.getSurname(),
                         student.getPatronymic(), student.getSchool(), student.getClas(), student.getAge()));
             }
-            doc.appendChild(rootElement);
-            rootElement.appendChild(getStudent(doc, newStudent.getId(), newStudent.getName(), newStudent.getSurname(),
-                    newStudent.getPatronymic(), newStudent.getSchool(), newStudent.getClas(), newStudent.getAge()));
+//            doc.appendChild(rootElement);
+//            rootElement.appendChild(getStudent(doc, newStudent.getId(), newStudent.getName(), newStudent.getSurname(),
+//                    newStudent.getPatronymic(), newStudent.getSchool(), newStudent.getClas(), newStudent.getAge()));
 
             doc.getDocumentElement().normalize();
             //создаем объект TransformerFactory для преобразования документа в файл

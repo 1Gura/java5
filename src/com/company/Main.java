@@ -44,7 +44,33 @@ public class Main {
         strings[4] = setValue();
         System.out.println("Введите возраст:");
         strings[5] = setValue();
-        return new Student(size,strings[0],strings[1],strings[2],
+        return new Student(size + 1,strings[0],strings[1],strings[2],
+                strings[3],strings[4], strings[5]);
+
+    }
+
+    private static Student changeStudent(String filePath) {
+        String[] strings = new String[6];
+        var sax = new SAXParse();
+        var students = sax.readerSaxDocument(filePath);
+        System.out.println("Введите id ученика:");
+        var searchId = getNum();
+
+        System.out.println("Введите значения для ученика:");
+        System.out.println("Введите имя:");
+        strings[0] = setValue();
+        System.out.println("Введите фамилию:");
+        strings[1] = setValue();
+        System.out.println("Введите отчество:");
+        strings[2] = setValue();
+        System.out.println("Введите школу:");
+        strings[3] = setValue();
+        System.out.println("Введите класс:");
+        strings[4] = setValue();
+        System.out.println("Введите возраст:");
+        strings[5] = setValue();
+
+        return new Student( searchId ,strings[0],strings[1],strings[2],
                 strings[3],strings[4], strings[5]);
 
     }
@@ -93,13 +119,15 @@ public class Main {
                     if (type == 1) {
                         var sax = new SAXParse();
                         var students =  sax.readerSaxDocument(filePath);
-                        for (Student student : students) {
-                            System.out.println(student.toString());
+                        if(students.size() > 0) {
+                            for (Student student : students) {
+                                System.out.println(student.toString());
+                            }
                         }
                     }
                 }break;
                 case 2: {
-                    //пределать в конце
+                    //переделать в конце
                     var sax = new SAXParse();
                     int typeSearch = 0;
                     String content = "";
@@ -112,24 +140,28 @@ public class Main {
                         Scanner scanner = new Scanner(System.in);
                         content = scanner.nextLine();
                         if (typeSearch >= 1 && typeSearch <= 2) {
-                            sax.searchSaxDocument(filePath, typeSearch, content);
+                            var student =  sax.searchSaxDocument(filePath, typeSearch, content);
+                            System.out.println(student.toString());
                             break;
                         } else {
                             System.out.println("Можно ввести только 1,2");
                         }
-
                     }
                 }break;
                 case 3: {
                     var sax = new SAXParse();
                     var students =  sax.readerSaxDocument(filePath);
                     var newStudent = setNewStudent(students.size());
+                    students.add(newStudent);
                     var dom = new DomParse(filePath);
-                    dom.setDomNodes(filePath, students, newStudent);
-
+                    dom.setDomNodes(filePath, students);
                 }break;
                 case 4: {
-
+                    var sax = new SAXParse();
+                    var students = sax.readerSaxDocument(filePath);
+                    var newStudent = changeStudent(filePath);
+                    var dom = new DomParse(filePath);
+                    dom.setDomNodes(filePath, students);
                 }break;
                 case 5: {
 

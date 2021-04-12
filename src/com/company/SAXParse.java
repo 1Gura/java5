@@ -24,7 +24,8 @@ public class SAXParse {
     protected String content;
     protected boolean flag = false;
     protected ArrayList<Student> students = new ArrayList<Student>();
-    protected  String[] strMas = new String[6];
+    protected String[] strMas = new String[6];
+    protected Student student;
     protected int step = 0;
     private final DefaultHandler handler = new DefaultHandler() {
         String tag = "";
@@ -41,26 +42,21 @@ public class SAXParse {
         public void characters(char ch[], int start, int length) throws SAXException {
             if (tag.equalsIgnoreCase("name")) {
                 strMas[0] = new String(ch, start, length);
-            }
-            else if (tag.equalsIgnoreCase("surname")) {
+            } else if (tag.equalsIgnoreCase("surname")) {
                 strMas[1] = new String(ch, start, length);
-            }
-            else if (tag.equalsIgnoreCase("patronymic")) {
+            } else if (tag.equalsIgnoreCase("patronymic")) {
                 strMas[2] = new String(ch, start, length);
-            }
-            else if (tag.equalsIgnoreCase("school")) {
+            } else if (tag.equalsIgnoreCase("school")) {
                 strMas[3] = new String(ch, start, length);
-            }
-            else if (tag.equalsIgnoreCase("clas")) {
+            } else if (tag.equalsIgnoreCase("clas")) {
                 strMas[4] = new String(ch, start, length);
-            }
-            else if (tag.equalsIgnoreCase("age")) {
+            } else if (tag.equalsIgnoreCase("age")) {
                 strMas[5] = new String(ch, start, length);
             }
 
-            if(strMas[0] != null && strMas[1] != null && strMas[2] != null &&
+            if (strMas[0] != null && strMas[1] != null && strMas[2] != null &&
                     strMas[3] != null && strMas[4] != null && strMas[5] != null && !id.equals("")) {
-                Student student = new Student(Integer.parseInt(id), strMas[0], strMas[1], strMas[2], strMas[3], strMas[4],strMas[5]);
+                Student student = new Student(Integer.parseInt(id), strMas[0], strMas[1], strMas[2], strMas[3], strMas[4], strMas[5]);
                 Arrays.fill(strMas, null);
                 students.add(student);
             }
@@ -74,34 +70,35 @@ public class SAXParse {
 
     private final DefaultHandler handlerSearch = new DefaultHandler() {
         String tag = "";
+        String id = "";
 
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             tag = qName;
-            String id = attributes.getValue("id");
-            if (tag.equalsIgnoreCase(content) && typeSearch == 1) {
-                flag = true;
-                System.out.println("\nЭлемент " + tag);
-            }
-            if (id != null) {
-                if (id.equalsIgnoreCase(content) && typeSearch == 2) {
-                    flag = true;
-                    System.out.println("\nЭлемент " + tag + " с id =" + content);
-                }
-            }
+            if (tag.equalsIgnoreCase("Student"))
+                id = attributes.getValue("id");
         }
 
         @Override
         public void characters(char ch[], int start, int length) throws SAXException {
-            if (flag) {
-                if (tag.equalsIgnoreCase("name") ||
-                        tag.equalsIgnoreCase("surname") ||
-                        tag.equalsIgnoreCase("patronymic") ||
-                        tag.equalsIgnoreCase("school") ||
-                        tag.equalsIgnoreCase("class") ||
-                        tag.equalsIgnoreCase("age")
-                )
-                    System.out.println(tag + ": " + new String(ch, start, length));
+            if (id.equalsIgnoreCase(content)) {
+                if (tag.equalsIgnoreCase("name")) {
+                    strMas[0] = new String(ch, start, length);
+                } else if (tag.equalsIgnoreCase("surname")) {
+                    strMas[1] = new String(ch, start, length);
+                } else if (tag.equalsIgnoreCase("patronymic")) {
+                    strMas[2] = new String(ch, start, length);
+                } else if (tag.equalsIgnoreCase("school")) {
+                    strMas[3] = new String(ch, start, length);
+                } else if (tag.equalsIgnoreCase("clas")) {
+                    strMas[4] = new String(ch, start, length);
+                } else if (tag.equalsIgnoreCase("age")) {
+                    strMas[5] = new String(ch, start, length);
+                }
+                if (strMas[0] != null && strMas[1] != null && strMas[2] != null &&
+                        strMas[3] != null && strMas[4] != null && strMas[5] != null && !id.equals("")) {
+                    student = new Student(Integer.parseInt(id), strMas[0], strMas[1], strMas[2], strMas[3], strMas[4], strMas[5]);
+                }
             }
         }
 
@@ -120,7 +117,7 @@ public class SAXParse {
         }
     };
 
-    public void searchSaxDocument(String filePath, int type, String content) {
+    public Student searchSaxDocument(String filePath, int type, String content) {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
@@ -130,6 +127,7 @@ public class SAXParse {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return student;
     }
 
     public ArrayList<Student> readerSaxDocument(String filePath) {
