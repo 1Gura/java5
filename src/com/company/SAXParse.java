@@ -160,5 +160,8 @@ public class SAXParse {
             e.printStackTrace();
         }
     }
+
+    public void searchSaxDocument(String filePath, int searchId) {
+    }
 };
 

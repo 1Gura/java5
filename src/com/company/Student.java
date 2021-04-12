@@ -29,6 +29,16 @@ public class Student {
                 +"Возраст: " + this.age + "\n";
     }
 
+    public String getStudent() {
+        return "Id:"+this.id + "\n"
+                +"Имя: " + this.name + "\n"
+                +"Фамилия: " + this.surname + "\n"
+                +"Отчество: " + this.patronymic + "\n"
+                +"Школа: " + this.school + "\n"
+                +"Класс: " + this.clas + "\n"
+                +"Возраст: " + this.age + "\n";
+    }
+
     public int getId() {
         return this.id;
     }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Students>
+    <Student id="1">
+        <name>Илья</name>
+        <surname>Гура</surname>
+        <patronymic>Сергеевич</patronymic>
+        <school>13</school>
+        <clas>11</clas>
+        <age>18</age>
+    </Student>
+    <Student id="2">
+        <name>Николай</name>
+        <surname>Кожевников</surname>
+        <patronymic>Сергеевич</patronymic>
+        <school>19</school>
+        <clas>11</clas>
+        <age>18</age>
+    </Student>
+</Students>

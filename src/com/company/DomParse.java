@@ -65,15 +65,12 @@ public class DomParse {
             Document doc = builder.newDocument();// создаем пустой объект Document
             // создаем корневой элемент
             Element rootElement = doc.createElement("Students");
+            doc.appendChild(rootElement);
             // добавляем корневой элемент в объект Document
             for(Student student : students){
                 rootElement.appendChild(getStudent(doc, student.getId(), student.getName(), student.getSurname(),
                         student.getPatronymic(), student.getSchool(), student.getClas(), student.getAge()));
             }
-//            doc.appendChild(rootElement);
-//            rootElement.appendChild(getStudent(doc, newStudent.getId(), newStudent.getName(), newStudent.getSurname(),
-//                    newStudent.getPatronymic(), newStudent.getSchool(), newStudent.getClas(), newStudent.getAge()));
-
             doc.getDocumentElement().normalize();
             //создаем объект TransformerFactory для преобразования документа в файл
             TransformerFactory transformerFactory = TransformerFactory.newInstance();

@@ -17,19 +17,18 @@ import org.xml.sax.helpers.DefaultHandler;
 public class Main {
 
     private static String setValue() {
-        while(true) {
+        while (true) {
             Scanner sc = new Scanner(System.in);
             String str = sc.next();
-            if(str.length() > 0) {
+            if (str.length() > 0) {
                 return str;
             } else {
                 System.out.println("Необходимо ввести значение!");
             }
         }
-
-
     }
-    private static Student setNewStudent(int size) {
+
+    private static String[] setValueStudent() {
         String[] strings = new String[6];
         System.out.println("Введите значения для ученика:");
         System.out.println("Введите имя:");
@@ -44,34 +43,32 @@ public class Main {
         strings[4] = setValue();
         System.out.println("Введите возраст:");
         strings[5] = setValue();
-        return new Student(size + 1,strings[0],strings[1],strings[2],
-                strings[3],strings[4], strings[5]);
+        return strings;
+    }
+
+    private static Student setNewStudent(int size) {
+        var strings = setValueStudent();
+        return new Student(size + 1, strings[0], strings[1], strings[2],
+                strings[3], strings[4], strings[5]);
 
     }
 
-    private static Student changeStudent(String filePath) {
-        String[] strings = new String[6];
+    private static void changeStudent(String filePath) {
         var sax = new SAXParse();
         var students = sax.readerSaxDocument(filePath);
         System.out.println("Введите id ученика:");
         var searchId = getNum();
-
-        System.out.println("Введите значения для ученика:");
-        System.out.println("Введите имя:");
-        strings[0] = setValue();
-        System.out.println("Введите фамилию:");
-        strings[1] = setValue();
-        System.out.println("Введите отчество:");
-        strings[2] = setValue();
-        System.out.println("Введите школу:");
-        strings[3] = setValue();
-        System.out.println("Введите класс:");
-        strings[4] = setValue();
-        System.out.println("Введите возраст:");
-        strings[5] = setValue();
-
-        return new Student( searchId ,strings[0],strings[1],strings[2],
-                strings[3],strings[4], strings[5]);
+        var strings = setValueStudent();
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == searchId) {
+                students.set(i, new Student(searchId,
+                        strings[0], strings[1], strings[2],
+                        strings[3], strings[4], strings[5]));
+                break;
+            }
+        }
+        var dom = new DomParse(filePath);
+        dom.setDomNodes(filePath, students);
 
     }
 
@@ -118,14 +115,15 @@ public class Main {
                 case 1: {
                     if (type == 1) {
                         var sax = new SAXParse();
-                        var students =  sax.readerSaxDocument(filePath);
-                        if(students.size() > 0) {
+                        var students = sax.readerSaxDocument(filePath);
+                        if (students.size() > 0) {
                             for (Student student : students) {
                                 System.out.println(student.toString());
                             }
                         }
                     }
-                }break;
+                }
+                break;
                 case 2: {
                     //переделать в конце
                     var sax = new SAXParse();
@@ -140,35 +138,36 @@ public class Main {
                         Scanner scanner = new Scanner(System.in);
                         content = scanner.nextLine();
                         if (typeSearch >= 1 && typeSearch <= 2) {
-                            var student =  sax.searchSaxDocument(filePath, typeSearch, content);
+                            var student = sax.searchSaxDocument(filePath, typeSearch, content);
                             System.out.println(student.toString());
                             break;
                         } else {
                             System.out.println("Можно ввести только 1,2");
                         }
                     }
-                }break;
+                }
+                break;
                 case 3: {
                     var sax = new SAXParse();
-                    var students =  sax.readerSaxDocument(filePath);
+                    var students = sax.readerSaxDocument(filePath);
                     var newStudent = setNewStudent(students.size());
                     students.add(newStudent);
                     var dom = new DomParse(filePath);
                     dom.setDomNodes(filePath, students);
-                }break;
+                }
+                break;
                 case 4: {
-                    var sax = new SAXParse();
-                    var students = sax.readerSaxDocument(filePath);
-                    var newStudent = changeStudent(filePath);
-                    var dom = new DomParse(filePath);
-                    dom.setDomNodes(filePath, students);
-                }break;
+                    changeStudent(filePath);
+                }
+                break;
                 case 5: {
 
-                }break;
+                }
+                break;
                 case 9: {
                     start();
-                }break;
+                }
+                break;
                 case 0: {
                     break;
                 }
