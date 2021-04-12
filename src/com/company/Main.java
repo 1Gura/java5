@@ -28,7 +28,7 @@ public class Main {
         }
     }
 
-    private static String[] setValueStudent() {
+    protected static String[] setValueStudent() {
         String[] strings = new String[6];
         System.out.println("Введите значения для ученика:");
         System.out.println("Введите имя:");
@@ -215,12 +215,17 @@ public class Main {
                 }
                 break;
                 case 3: {
-                    var sax = new SAXParse();
-                    var students = sax.readerSaxDocument(filePath);
-                    var newStudent = setNewStudent(students.size());
-                    students.add(newStudent);
-                    var dom = new DomParse(filePath);
-                    dom.setDomNodes(filePath, students);
+                    if(type == 1) {
+                        var sax = new SAXParse();
+                        var students = sax.readerSaxDocument(filePath);
+                        var newStudent = setNewStudent(students.size());
+                        students.add(newStudent);
+                        var dom = new DomParse(filePath);
+                        dom.setDomNodes(filePath, students);
+                    } else if(type == 2) {
+                        var mySqlObj = new MySqlParse();
+                        mySqlObj.workDataBase(choice);
+                    }
                 }
                 break;
                 case 4: {

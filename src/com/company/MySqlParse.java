@@ -17,7 +17,14 @@ public class MySqlParse {
     }
 
     public ResultSet searchRecord(Statement statement, int id) throws SQLException {
-        return statement.executeQuery("select * from students where id in("+ id +");");
+        return statement.executeQuery("select * from students where id in(" + id + ");");
+    }
+
+    public void addNewRecord(Statement statement) throws SQLException {
+        var strings = Main.setValueStudent();
+        statement.executeUpdate("INSERT INTO students (name, surname, patronymic, school, clas , age)" +
+                " VALUES ('" + strings[0] + "','" + strings[1] + "', '" + strings[2] + "', '" + strings[3] + "', " +
+                "'" + strings[4] + "','" + strings[5] + "')");
     }
 
     public ResultSet workDataBase(int action) {
@@ -34,10 +41,10 @@ public class MySqlParse {
                     case 2 -> {
                         System.out.println("Введите Id записи");
                         var id = Main.getNum();
-                        return searchRecord(statement,id);
+                        return searchRecord(statement, id);
                     }
                     case 3 -> {
-                        //addNewRecord();
+                        addNewRecord(statement);
                     }
                     case 4 -> {
                         //updateRecord();
