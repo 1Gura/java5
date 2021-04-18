@@ -57,7 +57,7 @@ public class DomParse {
         }
     }
 
-    public void setDomNodes(String filePath, ArrayList<Student> students) {
+    public void setDomNodes(ArrayList<Student> students) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         try {
@@ -67,9 +67,9 @@ public class DomParse {
             Element rootElement = doc.createElement("Students");
             doc.appendChild(rootElement);
             // добавляем корневой элемент в объект Document
-            for(Student student : students){
-                rootElement.appendChild(getStudent(doc, student.getId(), student.getName(), student.getSurname(),
-                        student.getPatronymic(), student.getSchool(), student.getClas(), student.getAge()));
+            for(int i = 0; i < students.size(); i++){
+                rootElement.appendChild(getStudent(doc, i + 1, students.get(i).getName(), students.get(i).getSurname(),
+                        students.get(i).getPatronymic(), students.get(i).getSchool(), students.get(i).getClas(), students.get(i).getAge()));
             }
             doc.getDocumentElement().normalize();
             //создаем объект TransformerFactory для преобразования документа в файл
@@ -81,7 +81,7 @@ public class DomParse {
             //получение исходного кода готового документа
             DOMSource source = new DOMSource(doc);
             //создание объекта для записи - файл
-            StreamResult file = new StreamResult(new File(filePath));
+            StreamResult file = new StreamResult(new File(this.filePath));
             //запись данных
             transformer.transform(source, file);
         } catch (Exception e) {

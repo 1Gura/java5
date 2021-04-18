@@ -71,7 +71,7 @@ public class Main {
         }
         if (flag) {
             var dom = new DomParse(filePath);
-            dom.setDomNodes(filePath, students);
+            dom.setDomNodes(students);
         } else {
             System.out.println("Такого ученика нет!");
         }
@@ -93,7 +93,7 @@ public class Main {
         }
         if (flag) {
             var dom = new DomParse(filePath);
-            dom.setDomNodes(filePath, students);
+            dom.setDomNodes(students);
         } else {
             System.out.println("Такого студента нет!");
         }
@@ -129,6 +129,19 @@ public class Main {
     public static void start() {
         String filePath = "D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\file.xml";
         int type = choiceWithWork();
+        if (type == 3) {
+            var sax = new SAXParse();
+            var parsing = new Parsing(sax.readerSaxDocument(filePath));
+            parsing.parseXMLtoDB();
+            start();
+        }
+        if(type == 4) {
+            var sax = new SAXParse();
+            var dom = new DomParse(filePath);
+            var parsing = new Parsing(sax.readerSaxDocument(filePath), dom);
+            parsing.parseDBtoXML();
+            start();
+        }
         while (true) {
             System.out.println("Выберите действие: \n" +
                     "1: Вывести всё содержимое\n" +
@@ -210,7 +223,7 @@ public class Main {
                         var newStudent = setNewStudent(students.size());
                         students.add(newStudent);
                         var dom = new DomParse(filePath);
-                        dom.setDomNodes(filePath, students);
+                        dom.setDomNodes(students);
                     } else if (type == 2) {
                         var mySqlObj = new MySqlParse();
                         mySqlObj.workDataBase(choice);

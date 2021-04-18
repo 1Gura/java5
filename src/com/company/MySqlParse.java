@@ -6,31 +6,43 @@ public class MySqlParse {
     private final String userName = "root";
     private final String password = "1234";
     private final String connectionUrl = "jdbc:mysql://localhost:3306/test";
+    private Statement statement;
 
     MySqlParse() {
-
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl, userName, password);
+            System.out.println("Подключение прошло успешно!");
+            this.statement = (Statement) connection.createStatement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    public ResultSet getAll(Statement statement) throws SQLException {
-        return statement.executeQuery("select * from students");
+    public ResultSet getAll() throws SQLException {
+        return this.statement.executeQuery("select * from students");
     }
 
-    public ResultSet searchRecord(Statement statement, int id) throws SQLException {
+    public ResultSet searchRecord(int id) throws SQLException {
         return statement.executeQuery("select * from students where id in(" + id + ");");
     }
 
-    public void addNewRecord(Statement statement) throws SQLException {
-        var strings = Main.setValueStudent();
-        statement.executeUpdate("INSERT INTO students (name, surname, patronymic, school, clas , age)" +
+    public void addNewRecord(String[] strings) throws SQLException {
+        this.statement.executeUpdate("INSERT INTO students (name, surname, patronymic, school, clas , age)" +
                 " VALUES ('" + strings[0] + "','" + strings[1] + "', '" + strings[2] + "', '" + strings[3] + "', " +
                 "'" + strings[4] + "','" + strings[5] + "')");
     }
 
-    public void updateRecord(Statement statement, int id) throws SQLException {
+    public void addNewRecord(Student student) throws SQLException {
+        statement.executeUpdate("INSERT INTO students (name, surname, patronymic, school, clas , age)" +
+                " VALUES ('" + student.name + "','" + student.surname + "', '" + student.patronymic + "', '" + student.school + "', " +
+                "'" + student.clas + "','" + student.age + "')");
+    }
+
+    public void updateRecord(int id) throws SQLException {
         var strings = Main.setValueStudent();
         statement.executeUpdate("update students set name = '" + strings[0] + "', surname = '" + strings[1] + "', patronymic = '" + strings[2] + "', school = '" + strings[3] + "', clas = '" + strings[4] + "', age = '" + strings[5] + "' where id = " + id + ";");
     }
 
-    public void deleteRecord(Statement statement, int id) throws SQLException {
+    public void deleteRecord(int id) throws SQLException {
         statement.executeUpdate("delete from students where id in(" + id + ");");
     }
 
@@ -39,30 +51,28 @@ public class MySqlParse {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try {
-                Connection connection = DriverManager.getConnection(connectionUrl, userName, password);
-                System.out.println("Подключение прошло успешно!");
-                Statement statement = (Statement) connection.createStatement();
                 switch (action) {
                     case 1 -> {
-                        return getAll(statement);
+                        return getAll();
                     }
                     case 2 -> {
                         System.out.println("Введите Id записи");
                         var id = Main.getNum();
-                        return searchRecord(statement, id);
+                        return searchRecord(id);
                     }
                     case 3 -> {
-                        addNewRecord(statement);
+                        var strings = Main.setValueStudent();
+                        addNewRecord(strings);
                     }
                     case 4 -> {
                         System.out.println("Введите Id записи");
                         var id = Main.getNum();
-                        updateRecord(statement, id);
+                        updateRecord(id);
                     }
                     case 5 -> {
                         System.out.println("Введите Id записи");
                         var id = Main.getNum();
-                        deleteRecord(statement, id);
+                        deleteRecord(id);
                     }
                 }
             } catch (Exception e) {
