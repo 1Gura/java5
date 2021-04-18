@@ -3,13 +3,18 @@ package com.company;
 import java.sql.*;
 
 public class MySqlParse {
-    private final String userName = "root";
-    private final String password = "1234";
-    private final String connectionUrl = "jdbc:mysql://localhost:3306/test";
+    private  String connectionUrl;
+    private  String userName ;
+    private  String password ;
     private Statement statement;
 
     MySqlParse() {
         try {
+            PropertiesParse propertiesParse = new PropertiesParse();
+            var settings = propertiesParse.bdSettings();
+            this.connectionUrl = settings[0];
+            this.userName = settings[1];
+            this.password = settings[2];
             Connection connection = DriverManager.getConnection(connectionUrl, userName, password);
             System.out.println("Подключение прошло успешно!");
             this.statement = (Statement) connection.createStatement();
@@ -76,10 +81,12 @@ public class MySqlParse {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Что-то пошло не так.");
+                var prop = new PropertiesParse();
+                System.out.println(prop.error());
             }
         } catch (Exception e) {
-            System.out.println("Отсутствует драйвер! ");
+            var prop = new PropertiesParse();
+            System.out.println(prop.errorDriver());
         }
         return null;
     }

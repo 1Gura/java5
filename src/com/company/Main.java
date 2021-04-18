@@ -115,19 +115,22 @@ public class Main {
                 "1: XML\n" +
                 "2: БД\n" +
                 "3: Конвертировать данные из XML в БД\n" +
-                "4: Конвертировать данные из БД в XML\n");
+                "4: Конвертировать данные из БД в XML\n" +
+                "5: Завершить работу.");
         int type = 0;
         while (true) {
             type = getNum();
-            if (type >= 1 && type <= 4) {
+            if (type >= 1 && type <= 5) {
                 return type;
             }
-            System.out.println("Можно ввести только 1,2,3,4");
+            System.out.println("Можно ввести только 1,2,3,4,5");
         }
     }
 
     public static void start() {
-        String filePath = "D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\file.xml";
+        var prop = new PropertiesParse();
+        var catalog = prop.readCatalogRoot();
+        String filePath = catalog + "\\file.xml";
         int type = choiceWithWork();
         if (type == 3) {
             var sax = new SAXParse();
@@ -135,13 +138,14 @@ public class Main {
             parsing.parseXMLtoDB();
             start();
         }
-        if(type == 4) {
+        if (type == 4) {
             var sax = new SAXParse();
             var dom = new DomParse(filePath);
             var parsing = new Parsing(sax.readerSaxDocument(filePath), dom);
             parsing.parseDBtoXML();
             start();
         }
+        if (type == 5) return;
         while (true) {
             System.out.println("Выберите действие: \n" +
                     "1: Вывести всё содержимое\n" +
@@ -253,7 +257,7 @@ public class Main {
                 }
                 break;
                 case 0: {
-                    break;
+                    return;
                 }
             }
         }
