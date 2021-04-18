@@ -176,22 +176,11 @@ public class Main {
                         var sax = new SAXParse();
                         int typeSearch = 0;
                         String content = "";
-                        while (true) {
-                            System.out.println("Выберите по какому параметру искать:\n" +
-                                    "1: По тегу\n" +
-                                    "2: По id\n");
-                            typeSearch = getNum();
-                            System.out.print("Выберите содержимое поиска:\n");
-                            Scanner scanner = new Scanner(System.in);
-                            content = scanner.nextLine();
-                            if (typeSearch >= 1 && typeSearch <= 2) {
-                                var student = sax.searchSaxDocument(filePath, typeSearch, content);
-                                System.out.println(student != null ? student.toString() : "Такого студента нет!");
-                                break;
-                            } else {
-                                System.out.println("Можно ввести только 1,2");
-                            }
-                        }
+                        System.out.print("Выберите содержимое поиска (id):\n");
+                        Scanner scanner = new Scanner(System.in);
+                        content = scanner.nextLine();
+                        var student = sax.searchSaxDocument(filePath, typeSearch, content);
+                        System.out.println(student != null ? student.toString() : "Такого студента нет!");
                     } else if (type == 2) {
                         var mySqlObj = new MySqlParse();
                         var result = mySqlObj.workDataBase(choice);
