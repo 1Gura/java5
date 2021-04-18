@@ -42,7 +42,7 @@ public class Main {
         System.out.println("Введите класс:");
         strings[4] = setValue();
         System.out.println("Введите возраст:");
-        strings[5] = setValue();
+        strings[5] = getNum() + "";
         return strings;
     }
 
@@ -215,25 +215,35 @@ public class Main {
                 }
                 break;
                 case 3: {
-                    if(type == 1) {
+                    if (type == 1) {
                         var sax = new SAXParse();
                         var students = sax.readerSaxDocument(filePath);
                         var newStudent = setNewStudent(students.size());
                         students.add(newStudent);
                         var dom = new DomParse(filePath);
                         dom.setDomNodes(filePath, students);
-                    } else if(type == 2) {
+                    } else if (type == 2) {
                         var mySqlObj = new MySqlParse();
                         mySqlObj.workDataBase(choice);
                     }
                 }
                 break;
                 case 4: {
-                    changeStudent(filePath);
+                    if (type == 1) {
+                        changeStudent(filePath);
+                    } else if (type == 2) {
+                        var mySqlObj = new MySqlParse();
+                        mySqlObj.workDataBase(choice);
+                    }
                 }
                 break;
                 case 5: {
-                    deleteStudent(filePath);
+                    if (type == 1) {
+                        deleteStudent(filePath);
+                    } else if (type == 2) {
+                        var mySqlObj = new MySqlParse();
+                        mySqlObj.workDataBase(choice);
+                    }
                 }
                 break;
                 case 9: {
@@ -248,23 +258,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-        //DOM XML
-//        var domTest = new DomParse("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\file.xml");
-//        domTest.getDOMNodes();
-//        domTest.setDomNodes();
-
-        //SAX XML
-        //"D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\saxfile1.xml"
-        //    var saxTest = new SAXParse();
-        //saxTest.readerSaxDocument("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\saxfile1.xml");
-//        saxTest.writeSaxDocument("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\saxfile2.xml");
-//        PropertiesParse propertiesParse = new PropertiesParse();
-//        propertiesParse.readSettings("D:\\~~~3курс 2 сем\\~лабы\\ИСИС\\5 лаба ИС\\settings.properties");
-
-//        Работа с БД
-//        var base = new MySqlParse();
-//        base.workDataBase();
         start();
     }
 }

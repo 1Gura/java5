@@ -1,11 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Students>
-    <Student id="2">
-        <name>Владислав</name>
-        <surname>Пахомов</surname>
-        <patronymic>Николаевич</patronymic>
-        <school>13</school>
-        <clas>11</clas>
-        <age>18</age>
-    </Student>
-</Students>
+<Students/>

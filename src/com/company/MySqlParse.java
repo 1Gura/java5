@@ -10,8 +10,6 @@ public class MySqlParse {
     MySqlParse() {
 
     }
-    //statement.executeUpdate("INSERT INTO students values (2,'asd','asd','asd','Школа №13', '11', '18');");
-
     public ResultSet getAll(Statement statement) throws SQLException {
         return statement.executeQuery("select * from students");
     }
@@ -26,6 +24,16 @@ public class MySqlParse {
                 " VALUES ('" + strings[0] + "','" + strings[1] + "', '" + strings[2] + "', '" + strings[3] + "', " +
                 "'" + strings[4] + "','" + strings[5] + "')");
     }
+
+    public void updateRecord(Statement statement, int id) throws SQLException {
+        var strings = Main.setValueStudent();
+        statement.executeUpdate("update students set name = '" + strings[0] + "', surname = '" + strings[1] + "', patronymic = '" + strings[2] + "', school = '" + strings[3] + "', clas = '" + strings[4] + "', age = '" + strings[5] + "' where id = " + id + ";");
+    }
+
+    public void deleteRecord(Statement statement, int id) throws SQLException {
+        statement.executeUpdate("delete from students where id in(" + id + ");");
+    }
+
 
     public ResultSet workDataBase(int action) {
         try {
@@ -47,19 +55,16 @@ public class MySqlParse {
                         addNewRecord(statement);
                     }
                     case 4 -> {
-                        //updateRecord();
+                        System.out.println("Введите Id записи");
+                        var id = Main.getNum();
+                        updateRecord(statement, id);
                     }
                     case 5 -> {
-                        //deleteRecord();
+                        System.out.println("Введите Id записи");
+                        var id = Main.getNum();
+                        deleteRecord(statement, id);
                     }
                 }
-
-
-//                ResultSet resultSet = statement.executeQuery("select * from books");
-//                while(resultSet.next()) {
-//                    System.out.print(resultSet.getInt("id") + " ");
-//                    System.out.println(resultSet.getString("name"));
-//                }
             } catch (Exception e) {
                 System.out.println("Что-то пошло не так.");
             }
