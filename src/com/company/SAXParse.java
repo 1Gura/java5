@@ -82,17 +82,17 @@ public class SAXParse {
         @Override
         public void characters(char ch[], int start, int length) throws SAXException {
             if (id.equalsIgnoreCase(content)) {
-                if (tag.equalsIgnoreCase("name")) {
+                if (tag.equalsIgnoreCase("name") && strMas[0] == null) {
                     strMas[0] = new String(ch, start, length);
-                } else if (tag.equalsIgnoreCase("surname")) {
+                } else if (tag.equalsIgnoreCase("surname") && strMas[1] == null) {
                     strMas[1] = new String(ch, start, length);
-                } else if (tag.equalsIgnoreCase("patronymic")) {
+                } else if (tag.equalsIgnoreCase("patronymic") && strMas[2] == null) {
                     strMas[2] = new String(ch, start, length);
-                } else if (tag.equalsIgnoreCase("school")) {
+                } else if (tag.equalsIgnoreCase("school") && strMas[3] == null) {
                     strMas[3] = new String(ch, start, length);
-                } else if (tag.equalsIgnoreCase("clas")) {
+                } else if (tag.equalsIgnoreCase("clas") && strMas[4] == null) {
                     strMas[4] = new String(ch, start, length);
-                } else if (tag.equalsIgnoreCase("age")) {
+                } else if (tag.equalsIgnoreCase("age") && strMas[5] == null) {
                     strMas[5] = new String(ch, start, length);
                 }
                 if (strMas[0] != null && strMas[1] != null && strMas[2] != null &&
