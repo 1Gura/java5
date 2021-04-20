@@ -191,12 +191,11 @@ public class Main {
                 case 2: {
                     if (type == 1) {
                         var sax = new SAXParse();
-                        int typeSearch = 0;
                         String content = "";
                         System.out.print("Выберите содержимое поиска (id):\n");
                         Scanner scanner = new Scanner(System.in);
                         content = scanner.nextLine();
-                        var student = sax.searchSaxDocument(filePath, typeSearch, content);
+                        var student = sax.searchSaxDocument(filePath, content);
                         System.out.println(student != null ? student.toString() : "Такого студента нет!");
                     } else if (type == 2) {
                         var mySqlObj = new MySqlParse();
