@@ -2,7 +2,7 @@
 <dataSource name="test@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.21">
     <root id="1">
-      <ServerVersion>8.0.23</ServerVersion>
+      <ServerVersion>8.0.24</ServerVersion>
       <Grants>|root||ilya||ALTER|G
 |root||root|localhost|ALTER|G
 |root||ilya||ALTER ROUTINE|G
@@ -1009,7 +1009,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Plugin>caching_sha2_password</Plugin>
     </user>
     <table id="286" parent="7" name="students"/>
-    <column id="287" parent="286" name="id">
+    <column id="287" parent="286" name="Id">
       <Position>1</Position>
       <DataType>mediumint|0s</DataType>
       <NotNull>1</NotNull>
@@ -1018,36 +1018,30 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <column id="288" parent="286" name="name">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="289" parent="286" name="surname">
       <Position>3</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="290" parent="286" name="patronymic">
       <Position>4</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="291" parent="286" name="school">
       <Position>5</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="292" parent="286" name="clas">
       <Position>6</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="293" parent="286" name="age">
       <Position>7</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <key id="294" parent="286" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
+      <ColNames>Id</ColNames>
       <Primary>1</Primary>
     </key>
   </database-model>
